@@ -723,6 +723,45 @@ ul, ol { list-style: none; padding: 0; }
   .flow-step { gap: 18px; }
 }
 
+/* スマホ幅：無料相談カードの文字はみ出し / 横スクロールを防ぐ */
+@media (max-width: 768px) {
+  .consult-card {
+    grid-template-columns: 1fr;
+    width: calc(100% - 32px);
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 32px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .consult-heading { font-size: 1.08rem; margin-bottom: 14px; }
+
+  /* 箇条書き本文はカード内で自然に折り返す（固定幅・不要な余白を持たせない） */
+  .consult-list li {
+    font-size: 1rem;
+    line-height: 1.8;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .consult-note { font-size: .84rem; line-height: 1.8; }
+  .consult-cta { padding-top: 20px; }
+
+  /* ボタンも画面幅からはみ出さない（nowrap を解除して折り返し可能に） */
+  .consult-card .btn,
+  .consult-cta .btn {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 16px;
+    padding-right: 16px;
+    white-space: normal;
+  }
+}
+
 @media (max-width: 460px) {
   .cards-4 { grid-template-columns: 1fr; }
   .btn { width: 100%; }
