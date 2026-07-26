@@ -14,6 +14,21 @@
   ).matches;
 
   /* -------------------------------------------------------
+     0. 公式LINE への導線
+        URL は一箇所（この定数）だけで管理する。
+        data-line-cta を付けた要素すべてに、新規タブ用の
+        リンク先とセキュリティ属性をまとめて設定する。
+        JS 無効時は元の href（ページ内アンカー）へ緩やかに遷移。
+  -------------------------------------------------------- */
+  const LINE_URL =
+    "https://line.me/R/ti/p/@074vgaqi?ts=04111850&oat_content=url";
+  document.querySelectorAll("[data-line-cta]").forEach((el) => {
+    el.setAttribute("href", LINE_URL);
+    el.setAttribute("target", "_blank");
+    el.setAttribute("rel", "noopener noreferrer");
+  });
+
+  /* -------------------------------------------------------
      1. スクロールで reveal（控えめなフェード + 浮き上がり）
   -------------------------------------------------------- */
   const revealEls = Array.from(document.querySelectorAll(".reveal"));

@@ -633,6 +633,116 @@ ul, ol { list-style: none; padding: 0; }
 .service-title { font-size: 1.3rem; font-weight: 900; color: var(--mlc-ink); line-height: 1.5; }
 .service-desc { margin-top: 16px; font-size: 1rem; color: var(--mlc-ink-soft); line-height: 1.95; }
 
+/* カードの高さを揃え、CTAを下端に寄せる */
+.service-grid .service-card { display: flex; flex-direction: column; }
+.service-price { margin-top: 16px; }
+.service-points { margin-top: 18px; }
+.service-points li {
+  position: relative; padding: 7px 0 7px 26px; font-size: .98rem;
+  color: var(--mlc-ink); line-height: 1.7;
+}
+.service-points li::before {
+  content: ""; position: absolute; left: 4px; top: 15px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--mlc-sub);
+}
+.service-cta { margin-top: auto; padding-top: 24px; }
+.service-cta .btn { width: 100%; }
+
+/* =========================================================
+   料金表示（共通）
+   ========================================================= */
+.price-tag {
+  display: inline-flex; align-items: baseline; gap: 4px;
+  font-weight: 900; color: var(--mlc-main);
+}
+.price-tag .price-num { font-size: clamp(1.6rem, 4.4vw, 2rem); line-height: 1; letter-spacing: 0; }
+.price-tag .price-unit { font-size: .92rem; font-weight: 700; color: var(--mlc-ink-soft); }
+.price-tag.price-free { color: var(--mlc-sub); }
+.price-tag.price-free .price-num { font-size: clamp(1.8rem, 5vw, 2.3rem); }
+
+/* 無料相談の料金ハイライト */
+.price-highlight {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 14px 26px;
+  max-width: 620px; margin: 0 auto clamp(28px, 4vw, 40px);
+  background: var(--mlc-base); border: 1px solid var(--mlc-line);
+  border-radius: 999px; box-shadow: var(--mlc-shadow);
+  padding: 16px 28px;
+}
+.price-facts {
+  display: flex; flex-wrap: wrap; gap: 6px 18px;
+  font-size: .94rem; font-weight: 700; color: var(--mlc-ink);
+}
+.price-facts li { position: relative; padding-left: 18px; }
+.price-facts li::before {
+  content: "✓"; position: absolute; left: 0; color: var(--mlc-sub); font-weight: 900;
+}
+
+/* =========================================================
+   ステータスバッジ（準備中）
+   ========================================================= */
+.status-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .84rem; font-weight: 700; letter-spacing: .04em;
+  padding: 6px 16px; border-radius: 999px;
+  background: var(--mlc-surface-2); color: var(--mlc-ink-soft);
+  border: 1px solid var(--mlc-line);
+}
+.status-badge.is-prep {
+  background: var(--mlc-accent-soft); color: #a9713b; border-color: #ecdcc6;
+}
+.program-status { margin-top: 16px; }
+
+/* 無効状態のボタン（申し込み不可） */
+.btn-disabled {
+  background: var(--mlc-surface-2);
+  border-color: var(--mlc-line);
+  color: var(--mlc-ink-soft);
+  cursor: default; box-shadow: none;
+  pointer-events: none;
+}
+.btn-disabled:hover { transform: none; }
+
+/* =========================================================
+   継続伴走プログラム：準備中プランカード（控えめに）
+   ========================================================= */
+.plan-card {
+  max-width: 720px; margin: clamp(40px, 6vw, 64px) auto 0;
+  background: var(--mlc-surface);
+  border: 1px dashed var(--mlc-line);
+  border-radius: var(--mlc-radius-lg);
+  box-shadow: var(--mlc-shadow);
+  padding: clamp(30px, 5vw, 48px);
+}
+.plan-head {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+}
+.plan-title { font-size: 1.3rem; font-weight: 900; color: var(--mlc-ink); line-height: 1.4; }
+.plan-price {
+  margin-top: 22px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 12px;
+}
+.plan-price .price-label {
+  font-size: .86rem; font-weight: 700; color: var(--mlc-ink-soft);
+}
+.plan-price-note { margin-top: 8px; font-size: .82rem; color: var(--mlc-ink-soft); line-height: 1.7; }
+.plan-lead {
+  margin-top: 24px; font-size: 1rem; font-weight: 700; color: var(--mlc-ink);
+}
+.plan-points { margin-top: 12px; }
+.plan-points li {
+  position: relative; padding: 7px 0 7px 26px; font-size: .98rem;
+  color: var(--mlc-ink); line-height: 1.75;
+}
+.plan-points li::before {
+  content: ""; position: absolute; left: 4px; top: 15px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--mlc-accent);
+}
+.plan-cta { margin-top: 28px; text-align: center; }
+.plan-cta .btn { min-width: 200px; max-width: 100%; }
+.plan-cta-note { margin-top: 16px; font-size: .9rem; color: var(--mlc-ink-soft); line-height: 1.8; }
+.plan-line-link { color: var(--mlc-main); font-weight: 700; text-decoration: underline; }
+.plan-line-link:hover { color: var(--mlc-main-strong); }
+
 /* =========================================================
    6b. 継続伴走（chips / note）
    ========================================================= */
@@ -759,6 +869,18 @@ ul, ol { list-style: none; padding: 0; }
     padding-left: 16px;
     padding-right: 16px;
     white-space: normal;
+  }
+}
+
+/* スマホ幅：追加した料金・CTA・準備中カードのはみ出し防止 */
+@media (max-width: 768px) {
+  .price-highlight { border-radius: var(--mlc-radius); padding: 18px 20px; gap: 12px; }
+  .price-facts { justify-content: center; }
+
+  .service-cta .btn,
+  .plan-cta .btn {
+    width: 100%; max-width: 100%; box-sizing: border-box;
+    padding-left: 16px; padding-right: 16px; white-space: normal;
   }
 }
 
