@@ -193,9 +193,18 @@ ul, ol { list-style: none; padding: 0; }
   overflow: hidden;
 }
 .hero-grid {
-  display: grid; grid-template-columns: 1.08fr 0.92fr; gap: clamp(36px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  grid-template-areas:
+    "copy   visual"
+    "cta    visual";
+  column-gap: clamp(36px, 5vw, 64px);
+  row-gap: 0;
   align-items: center;
 }
+/* ビジュアルが縦に長いときも、文章とボタンが離れないよう行境界で寄せる */
+.hero-copy   { grid-area: copy; align-self: end; }
+.hero-cta    { grid-area: cta;  align-self: start; margin-top: 34px; }
 .eyebrow {
   display: inline-block; font-size: .84rem; font-weight: 700; letter-spacing: .08em;
   color: var(--mlc-main); background: var(--mlc-main-soft);
@@ -209,18 +218,44 @@ ul, ol { list-style: none; padding: 0; }
   margin-top: 26px; font-size: clamp(1.02rem, 2.2vw, 1.24rem);
   color: var(--mlc-ink-soft); line-height: 1.95; font-weight: 500;
 }
-.hero-actions { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 .hero-note {
   margin-top: 22px; font-size: .9rem; color: var(--mlc-sub);
   font-weight: 700;
 }
 
-/* ヒーロービジュアル（ブラウザ + スマホ） */
-.hero-visual { position: relative; }
+/* ヒーロービジュアル（ブラウザ + スマホ + 運営者） */
+.hero-visual { position: relative; grid-area: visual; align-self: center; }
 .hero-visual .device-browser { position: relative; z-index: 1; }
 .hero-visual .device-phone {
   position: absolute; right: -18px; bottom: -46px; width: 30%;
   max-width: 190px; z-index: 2;
+}
+
+/* 運営者本人（主役はサービス、人物は安心感を添える存在） */
+.hero-portrait {
+  position: absolute; left: -26px; bottom: -66px; z-index: 3;
+  width: clamp(112px, 36%, 172px);
+  margin: 0; text-align: center;
+}
+/* モックと浮遊の動きが揃わないよう少しずらす（.float-slow より後勝ちさせる） */
+.hero-visual .hero-portrait { animation-delay: -2.4s; }
+.hero-portrait img {
+  width: 100%; aspect-ratio: 1 / 1;
+  border-radius: 50%; object-fit: cover;
+  background: var(--mlc-base);
+  border: 5px solid var(--mlc-base);
+  box-shadow: var(--mlc-shadow-lg);
+}
+.hero-portrait figcaption {
+  position: relative; display: inline-block; margin-top: -12px;
+  padding: 5px 13px;
+  background: var(--mlc-base);
+  border: 1px solid var(--mlc-line);
+  border-radius: 999px;
+  box-shadow: var(--mlc-shadow);
+  font-size: .72rem; font-weight: 700; letter-spacing: .02em;
+  color: var(--mlc-main); white-space: nowrap;
 }
 
 /* =========================================================
@@ -777,12 +812,18 @@ ul, ol { list-style: none; padding: 0; }
    ========================================================= */
 @media (max-width: 960px) {
   .feature-text .program-chips { justify-content: center; }
-  .hero-grid { grid-template-columns: 1fr; text-align: center; }
-  .hero-copy { order: 1; }
-  .hero-visual { order: 2; margin-top: 20px; }
+  /* スマホ・タブレット：文章 → 画像 → ボタン の順に積む */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: "copy" "visual" "cta";
+    text-align: center;
+  }
+  .hero-visual { margin: 26px 0 86px; }
+  .hero-cta { margin-top: 0; }
   .hero-actions { justify-content: center; }
   .eyebrow { margin-left: auto; margin-right: auto; }
   .hero-visual .device-phone { right: 0; bottom: -34px; }
+  .hero-portrait { left: 2%; bottom: -48px; width: clamp(104px, 30%, 156px); }
 
   .cards-4 { grid-template-columns: repeat(2, 1fr); }
 
