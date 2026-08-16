@@ -647,8 +647,11 @@ ul, ol { list-style: none; padding: 0; }
 .consult-cta .btn { width: 100%; }
 
 /* =========================================================
-   5b. 転職活動サポート（単発サポートカード）
+   5b. 相談サービス（電話相談カード）
    ========================================================= */
+/* 1枚だけのカードは中央に、読みやすい横幅で置く */
+.cards-1 { grid-template-columns: 1fr; max-width: 720px; margin-left: auto; margin-right: auto; }
+
 .service-card {
   background: var(--mlc-base);
   border: 1px solid var(--mlc-line);
@@ -680,6 +683,7 @@ ul, ol { list-style: none; padding: 0; }
   content: ""; position: absolute; left: 4px; top: 15px;
   width: 8px; height: 8px; border-radius: 50%; background: var(--mlc-sub);
 }
+.service-note { margin-top: 18px; font-size: .86rem; color: var(--mlc-ink-soft); line-height: 1.8; }
 .service-cta { margin-top: auto; padding-top: 24px; }
 .service-cta .btn { width: 100%; }
 
@@ -1317,6 +1321,11 @@ ul, ol { list-style: none; padding: 0; }
 @media (max-width: 768px) {
   .price-highlight { border-radius: var(--mlc-radius); padding: 18px 20px; gap: 12px; }
   .price-facts { justify-content: center; }
+
+  /* 相談カード：スマホでは画面幅いっぱいに、余白を詰める */
+  .cards-1 { max-width: 100%; }
+  .service-card { padding: 30px 20px; }
+  .service-note { font-size: .84rem; }
 
   .service-cta .btn,
   .plan-cta .btn {
