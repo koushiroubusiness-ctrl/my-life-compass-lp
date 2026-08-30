@@ -533,7 +533,7 @@ ul, ol { list-style: none; padding: 0; }
   gap: clamp(30px, 4vw, 60px);
   align-items: center;
 }
-.talk-copy { max-width: 420px; }
+.talk-copy { max-width: 460px; }
 .talk-figure {
   margin: 0;
   margin-right: calc(50% - 50vw);
@@ -552,6 +552,38 @@ ul, ol { list-style: none; padding: 0; }
     linear-gradient(to right, transparent 0%, #000 26%),
     linear-gradient(to bottom, #000 78%, transparent 100%);
           mask-composite: intersect;
+}
+
+/* 静かな箇条書き（TALK / PRODUCE で共有）
+   カードにせず、小さなゴールドの点と余白だけで並べる */
+.qlist { display: flex; flex-direction: column; gap: clamp(12px, 1.7vw, 16px); }
+.qlist > li {
+  position: relative; padding-left: 21px;
+  font-size: clamp(.91rem, 1.8vw, .98rem);
+  color: var(--ink); line-height: 1.95;
+}
+.qlist > li::before {
+  content: ""; position: absolute; left: 3px; top: .88em;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); opacity: .85;
+}
+.talk-list { margin-top: clamp(26px, 3.4vw, 34px); }
+
+/* TALK の考え方（セクションの締め） */
+.talk-belief {
+  position: relative;
+  margin-top: clamp(52px, 7vw, 92px);
+  padding-top: clamp(26px, 3.4vw, 34px);
+  text-align: center;
+  font-size: clamp(1.02rem, 2.3vw, 1.26rem);
+  font-weight: 600; color: var(--navy);
+  line-height: 1.95; letter-spacing: .01em;
+}
+.talk-belief::before {
+  content: ""; position: absolute; left: 50%; top: 0;
+  width: 44px; height: 1px; transform: translateX(-50%);
+  background: linear-gradient(90deg,
+    rgba(194, 160, 106, 0), var(--gold), rgba(194, 160, 106, 0));
 }
 
 /* =========================================================
@@ -621,6 +653,22 @@ ul, ol { list-style: none; padding: 0; }
               transform .85s var(--ease) var(--d, 0s);
 }
 .dia-note { --d: .22s; }
+
+/* 図の下に、一緒に考えることを具体的に置く */
+.dia-list {
+  max-width: 580px;
+  margin: clamp(30px, 4vw, 46px) auto 0;
+}
+
+/* 図③のあと：何を大切にしているのかを言葉で締める */
+.dia-close {
+  max-width: 680px;
+  margin: clamp(32px, 4.2vw, 50px) auto 0;
+  text-align: center;
+  font-size: clamp(.92rem, 1.85vw, 1.01rem);
+  color: var(--ink-soft); line-height: 2.05;
+}
+.dia-close strong { color: var(--navy); font-weight: 600; }
 
 /* 3つの図をつなぐ細いライン（別セクションに見せないため） */
 .dia-link {
@@ -851,7 +899,7 @@ ul, ol { list-style: none; padding: 0; }
 
 /* --- 3ヶ月、一緒に形を探す --- */
 .program {
-  max-width: 640px;
+  max-width: 760px;
   margin: var(--block-gap) auto 0;
   text-align: center;
   background: var(--white);
@@ -886,6 +934,95 @@ ul, ol { list-style: none; padding: 0; }
   font-size: clamp(.93rem, 1.9vw, 1rem); color: var(--ink-soft); line-height: 2.05;
 }
 .program-cta { margin-top: clamp(28px, 3.6vw, 38px); }
+.pgm-part + .program-cta { margin-top: clamp(34px, 4.4vw, 46px); }
+
+/* 2つの時間軸（毎週のサイクル / 3ヶ月の流れ）を、
+   細いラインで区切って続けて見せる */
+.pgm-part {
+  margin-top: clamp(34px, 4.6vw, 50px);
+  padding-top: clamp(32px, 4.2vw, 46px);
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+.pgm-label {
+  text-align: center;
+  font-size: .71rem; font-weight: 600; letter-spacing: .2em;
+  color: var(--gold-deep);
+}
+.pgm-lead {
+  margin-top: 14px; text-align: center;
+  font-size: clamp(.99rem, 2.1vw, 1.1rem); font-weight: 600;
+  color: var(--navy); line-height: 1.9;
+}
+.pgm-note {
+  margin-top: clamp(22px, 3vw, 30px);
+  font-size: clamp(.88rem, 1.75vw, .95rem);
+  color: var(--ink-soft); line-height: 2;
+}
+.pgm-small {
+  margin-top: 14px;
+  font-size: .79rem; color: var(--ink-soft); line-height: 1.9;
+}
+
+/* --- 毎週：整理 → 振り返る → 決める → やってみる --- */
+.week-flow {
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+  gap: 8px 0;
+  margin-top: clamp(24px, 3.2vw, 32px);
+}
+.week-flow > li {
+  display: flex; align-items: center;
+  font-size: clamp(.81rem, 1.65vw, .89rem); font-weight: 600;
+  color: var(--navy); line-height: 1.7; white-space: nowrap;
+}
+.week-flow > li + li::before {
+  content: ""; flex: 0 0 auto;
+  width: 20px; height: 9px; margin: 0 clamp(7px, 1.2vw, 11px);
+  background: var(--gold); opacity: .7;
+  -webkit-mask: var(--arrow-mask) no-repeat center / contain;
+          mask: var(--arrow-mask) no-repeat center / contain;
+}
+.week-loop {
+  margin-top: 15px; text-align: center;
+  font-size: .83rem; color: var(--ink-soft); letter-spacing: .02em;
+}
+
+/* --- 3ヶ月：縦の時間軸として見せる --- */
+.months {
+  position: relative;
+  margin-top: clamp(26px, 3.4vw, 34px);
+  padding-left: 27px;
+}
+.months::before {
+  content: ""; position: absolute; left: 3px; top: 10px; bottom: 12px;
+  width: 1px;
+  background: linear-gradient(180deg,
+    rgba(93, 120, 158, .34) 0%, rgba(93, 120, 158, .3) 58%, rgba(194, 160, 106, .6) 100%);
+}
+.months > li { position: relative; }
+.months > li + li { margin-top: clamp(26px, 3.4vw, 34px); }
+.months > li::before {
+  content: ""; position: absolute; left: -27px; top: 7px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--white); border: 1px solid var(--navy-soft);
+}
+.months > li:last-child::before { border-color: var(--gold); }
+.mo-when {
+  font-size: .71rem; font-weight: 600; letter-spacing: .16em;
+  color: var(--navy-soft);
+}
+.mo-what {
+  margin-top: 7px;
+  font-size: clamp(1rem, 2.1vw, 1.12rem); font-weight: 700;
+  color: var(--navy); line-height: 1.7;
+}
+.mo-desc {
+  margin-top: 10px;
+  font-size: clamp(.88rem, 1.75vw, .95rem);
+  color: var(--ink-soft); line-height: 2;
+}
+.mo-desc strong { color: var(--navy); font-weight: 600; }
 
 /* =========================================================
    TOOL
@@ -1198,6 +1335,18 @@ ul, ol { list-style: none; padding: 0; }
     -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
             mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
   }
+
+  /* TALK：締めの一文は少し小さく、行のリズムを整える */
+  .talk-belief { font-size: 1.04rem; line-height: 1.9; }
+
+  /* 毎週のサイクル：横並び → 縦の流れ */
+  .week-flow { flex-direction: column; align-items: flex-start; gap: 0; }
+  .week-flow > li { flex-direction: column; align-items: flex-start; width: 100%; }
+  .week-flow > li + li::before {
+    margin: 11px 0 11px 13px;
+    transform: rotate(90deg);
+  }
+  .week-loop { text-align: left; margin-top: 18px; }
 
   /* 図解：構造は保ったまま、文字が読める大きさを優先する */
   .dia-head { max-width: none; }
