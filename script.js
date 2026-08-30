@@ -1,17 +1,22 @@
 /* =========================================================
    My Life Compass — Landing Page scripts
-   - スクロールで要素をふわっと表示（IntersectionObserver）
-   - ヘッダーのスクロール状態
+   - 公式LINEのURLを一箇所で管理
+   - スクロールで静かに現れる reveal（IntersectionObserver）
+   - ファーストビューの順次登場
+   - ヘッダーの状態 / 現在セクションの表示
+   - スクロール進行ライン / ごく弱いparallax
    - モバイルナビの開閉
    - 画面画像が無いときのフォールバック
-   すべて依存ライブラリなしのバニラJS。
+   依存ライブラリなしのバニラJS。
    ========================================================= */
 (function () {
   "use strict";
 
+  const root = document.documentElement;
   const prefersReduced = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
+  const hasIO = "IntersectionObserver" in window;
 
   /* -------------------------------------------------------
      0. 公式LINE への導線
@@ -29,27 +34,48 @@
   });
 
   /* -------------------------------------------------------
-     1. スクロールで reveal（控えめなフェード + 浮き上がり）
+     1. ファーストビューの順次登場
+        ブランド名 → メインコピー → サブコピー → CTA
+        の順に、CSS側の --i で少しずつ遅らせて現れる。
+  -------------------------------------------------------- */
+  const startHero = () => root.classList.add("hero-ready");
+  if (prefersReduced) {
+    startHero();
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(startHero));
+  }
+
+  /* -------------------------------------------------------
+     2. スクロールで reveal
+        同時に視界へ入った要素は、DOM順（＝左から）に
+        ほんの少しだけ遅らせて表示する（最大 3 段）。
   -------------------------------------------------------- */
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
 
-  if (prefersReduced || !("IntersectionObserver" in window)) {
-    // 動きを減らす設定 / 非対応ブラウザでは即表示
+  if (prefersReduced || !hasIO) {
     revealEls.forEach((el) => el.classList.add("in"));
   } else {
+    const STEP = 70; // 1要素あたりの遅延（ms）
+    const MAX_STEPS = 3; // 待たされている感じを出さない
     const io = new IntersectionObserver(
       (entries, obs) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+        const shown = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => {
+            const ra = a.boundingClientRect;
+            const rb = b.boundingClientRect;
+            return ra.top - rb.top || ra.left - rb.left;
+          });
+
+        shown.forEach((entry, i) => {
           const el = entry.target;
-          // 同じ行内の要素を少しずつ遅らせて、上品な連鎖に
-          const siblings = Array.from(
-            el.parentElement ? el.parentElement.children : [el]
-          ).filter((c) => c.classList.contains("reveal"));
-          const idx = Math.max(0, siblings.indexOf(el));
-          el.style.transitionDelay = Math.min(idx * 80, 320) + "ms";
-          el.classList.add("in");
           obs.unobserve(el);
+          const delay = Math.min(i, MAX_STEPS) * STEP;
+          if (delay === 0) {
+            el.classList.add("in");
+          } else {
+            window.setTimeout(() => el.classList.add("in"), delay);
+          }
         });
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
@@ -58,18 +84,91 @@
   }
 
   /* -------------------------------------------------------
-     2. ヘッダー：スクロールで背景をつける
+     3. ヘッダーの状態 / スクロール進行ライン / parallax
+        scroll イベントは requestAnimationFrame で間引く。
   -------------------------------------------------------- */
   const header = document.getElementById("siteHeader");
-  const onScroll = () => {
-    if (!header) return;
-    header.classList.toggle("scrolled", window.scrollY > 12);
+  const progressBar = document.getElementById("progressBar");
+  const parallaxEls = prefersReduced
+    ? []
+    : Array.from(document.querySelectorAll("[data-parallax]"));
+
+  let ticking = false;
+  let vh = window.innerHeight;
+
+  const useParallax = () => parallaxEls.length > 0 && window.innerWidth > 780;
+
+  const render = () => {
+    ticking = false;
+    const y = window.scrollY || window.pageYOffset || 0;
+
+    if (header) header.classList.toggle("scrolled", y > 12);
+
+    if (progressBar) {
+      const max = document.documentElement.scrollHeight - vh;
+      const ratio = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+      progressBar.style.transform = "scaleY(" + ratio.toFixed(4) + ")";
+    }
+
+    if (useParallax()) {
+      parallaxEls.forEach((el) => {
+        const factor = parseFloat(el.getAttribute("data-parallax")) || 0;
+        const rect = el.getBoundingClientRect();
+        const offset = (vh / 2 - (rect.top + rect.height / 2)) * factor;
+        el.style.transform = "translate3d(0," + offset.toFixed(1) + "px,0)";
+      });
+    }
   };
-  onScroll();
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(render);
+  };
+
+  render();
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener(
+    "resize",
+    () => {
+      vh = window.innerHeight;
+      if (!useParallax()) {
+        parallaxEls.forEach((el) => (el.style.transform = ""));
+      }
+      onScroll();
+    },
+    { passive: true }
+  );
 
   /* -------------------------------------------------------
-     3. モバイルナビの開閉
+     4. 現在いるセクションをナビに静かに示す
+  -------------------------------------------------------- */
+  const navLinks = Array.from(document.querySelectorAll("[data-nav-link]"));
+  if (navLinks.length && hasIO) {
+    const map = new Map();
+    navLinks.forEach((link) => {
+      const id = (link.getAttribute("href") || "").replace("#", "");
+      const section = id && document.getElementById(id);
+      if (section) map.set(section, link);
+    });
+
+    const setActive = (link) => {
+      navLinks.forEach((l) => l.classList.toggle("is-active", l === link));
+    };
+
+    const navIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(map.get(entry.target));
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    map.forEach((_link, section) => navIO.observe(section));
+  }
+
+  /* -------------------------------------------------------
+     5. モバイルナビの開閉
   -------------------------------------------------------- */
   const toggle = document.getElementById("navToggle");
   const nav = document.getElementById("siteNav");
@@ -82,33 +181,30 @@
     toggle.addEventListener("click", () => {
       const open = nav.classList.toggle("open");
       toggle.setAttribute("aria-expanded", String(open));
-      toggle.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+      toggle.setAttribute(
+        "aria-label",
+        open ? "メニューを閉じる" : "メニューを開く"
+      );
     });
-    // ナビ内リンクを押したら閉じる
     nav.querySelectorAll("a").forEach((a) =>
       a.addEventListener("click", closeNav)
     );
-    // Escで閉じる
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeNav();
     });
   }
 
   /* -------------------------------------------------------
-     4. 画像フォールバック
-        画像が読み込めない場合は枠に is-missing を付け、
-        下地のラベル（.shot-fallback）を見せる。レイアウトは
-        aspect-ratio で確保済みなので崩れない。
+     6. 画像フォールバック
+        Webツールの画面画像が読み込めない場合は、その小さな
+        枠自体を取り下げる（人物写真のレイアウトは崩さない）。
   -------------------------------------------------------- */
   document.querySelectorAll("img.lp-shot").forEach((img) => {
     const markMissing = () => {
-      const shot = img.closest(".shot");
-      if (shot) shot.classList.add("is-missing");
+      const frame = img.closest(".tool-ui");
+      if (frame) frame.style.display = "none";
     };
-    // すでに失敗している場合（キャッシュ済みの壊れ画像など）
-    if (img.complete && img.naturalWidth === 0) {
-      markMissing();
-    }
+    if (img.complete && img.naturalWidth === 0) markMissing();
     img.addEventListener("error", markMissing);
   });
 })();
