@@ -472,6 +472,60 @@ ul, ol { list-style: none; padding: 0; }
 .about-word[data-pos="left"]  { --d: 1.35s; }
 .about-center { --d: 1.6s; }
 
+/* ブランドストーリー */
+.about-story {
+  margin-top: clamp(72px, 10vw, 132px);
+  text-align: center;
+}
+.about-story-title {
+  margin-top: 22px;
+  font-size: clamp(1.65rem, 4vw, 2.55rem);
+  font-weight: 700;
+  line-height: 1.65;
+  letter-spacing: .01em;
+  color: var(--navy);
+}
+.about-story-body {
+  max-width: 700px;
+  margin: clamp(34px, 5vw, 52px) auto 0;
+}
+.about-story-body > p + p {
+  margin-top: clamp(22px, 3vw, 30px);
+}
+.about-story-body p {
+  font-size: clamp(.96rem, 1.9vw, 1.04rem);
+  line-height: 2.15;
+  color: var(--ink);
+}
+.about-story-voices {
+  font-weight: 600;
+  color: var(--navy) !important;
+  line-height: 2.25 !important;
+}
+.about-story-actions {
+  color: var(--ink-soft) !important;
+}
+.about-story-belief {
+  position: relative;
+  margin-top: clamp(46px, 6vw, 72px) !important;
+  padding-top: clamp(30px, 4vw, 40px);
+  font-size: clamp(1.06rem, 2.4vw, 1.34rem) !important;
+  font-weight: 700;
+  line-height: 2 !important;
+  color: var(--navy) !important;
+}
+.about-story-belief::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 52px;
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg,
+    rgba(194, 160, 106, 0), var(--gold), rgba(194, 160, 106, 0));
+}
+
 /* =========================================================
    共感（ABOUT → TALK をつなぐ）
    ========================================================= */
@@ -1313,6 +1367,29 @@ ul, ol { list-style: none; padding: 0; }
   .about-word[data-pos="right"] { left: 84.6%; top: 70%; }
   .about-word[data-pos="left"]  { left: 15.4%; top: 70%; }
   .about-center { font-size: .78rem; padding: 6px 15px; top: 73%; }
+
+  /* ABOUT ブランドストーリー */
+  .about-story {
+    text-align: left;
+    margin-top: 72px;
+  }
+  .about-story-title {
+    font-size: 1.65rem;
+    line-height: 1.6;
+  }
+  .about-story-body {
+    margin-top: 30px;
+  }
+  .about-story-body > p + p {
+    margin-top: 20px;
+  }
+  .about-story-body p {
+    line-height: 2.05;
+  }
+  .about-story-belief::before {
+    left: 0;
+    transform: none;
+  }
 
   /* PRODUCE / LAST：画像を上に置き、下端をアイボリーへ溶かす */
   .band { display: block; min-height: 0; }
