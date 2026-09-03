@@ -160,6 +160,8 @@ ul, ol { list-style: none; padding: 0; }
 
 .pc-only { display: inline; }
 .sp-only { display: none; }
+/* 狭いスマホでだけ入れる改行 */
+.xs-only { display: none; }
 
 /* 統一された線画アイコン */
 .ic {
@@ -306,6 +308,29 @@ ul, ol { list-style: none; padding: 0; }
     radial-gradient(760px 520px at 78% 26%, rgba(240, 230, 212, .55) 0%, transparent 68%),
     radial-gradient(700px 480px at 6% 6%, rgba(234, 239, 246, .8) 0%, transparent 66%),
     linear-gradient(180deg, #ffffff 0%, #fdfaf4 58%, #ffffff 100%);
+}
+/* HERO の空気感（hero-welcome.png）
+   画像は主役ではなく、光と温度だけを足す。
+   左（コピー側）は完全にアイボリーへ、上下端は背景色へ戻し、
+   コンパスの背後だけ淡い光を置いて線が沈まないようにする。 */
+.hero::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to bottom,
+      #ffffff 0%, rgba(255, 255, 255, .58) 11%, rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0) 62%, rgba(255, 255, 255, .74) 88%, #ffffff 100%),
+    linear-gradient(99deg,
+      #fdfaf4 0%, rgba(253, 250, 244, .99) 27%, rgba(253, 250, 244, .95) 43%,
+      rgba(253, 250, 244, .82) 58%, rgba(253, 250, 244, .63) 80%,
+      rgba(253, 250, 244, .57) 100%),
+    radial-gradient(600px 560px at 84% 48%,
+      rgba(253, 250, 244, .82) 0%, rgba(253, 250, 244, .34) 46%,
+      rgba(253, 250, 244, 0) 74%),
+    url("./assets/hero-welcome.png");
+  background-repeat: no-repeat;
+  background-position: center, center, center, 100% 64%;
+  background-size: cover, cover, cover, cover;
 }
 .hero-compass {
   position: absolute; z-index: 0; pointer-events: none;
@@ -478,7 +503,7 @@ ul, ol { list-style: none; padding: 0; }
   text-align: center;
 }
 .about-story-title {
-  margin-top: 22px;
+  margin-top: 0;
   font-size: clamp(1.65rem, 4vw, 2.55rem);
   font-weight: 700;
   line-height: 1.65;
@@ -502,40 +527,53 @@ ul, ol { list-style: none; padding: 0; }
   color: var(--navy) !important;
   line-height: 2.25 !important;
 }
-.about-story-actions {
-  color: var(--ink-soft) !important;
-}
-.about-story-belief {
-  position: relative;
-  margin-top: clamp(46px, 6vw, 72px) !important;
-  padding-top: clamp(30px, 4vw, 40px);
-  font-size: clamp(1.06rem, 2.4vw, 1.34rem) !important;
-  font-weight: 700;
-  line-height: 2 !important;
-  color: var(--navy) !important;
-}
-.about-story-belief::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 52px;
-  height: 1px;
-  transform: translateX(-50%);
-  background: linear-gradient(90deg,
-    rgba(194, 160, 106, 0), var(--gold), rgba(194, 160, 106, 0));
-}
 
 /* =========================================================
    共感（ABOUT → TALK をつなぐ）
    ========================================================= */
+.voices {
+  padding-top: clamp(76px, 9vw, 132px);
+  padding-bottom: clamp(76px, 9vw, 128px);
+  overflow: hidden;
+}
+
+/* 6つの言葉の背後に、まだ迷っている時間そのものを置く。
+   画像は主張させず、カードの余白から気配だけが見える状態にする。 */
+.voices-block { position: relative; }
+.voices-scene {
+  position: absolute;
+  z-index: 0;
+  top: clamp(-110px, -7vw, -70px);
+  right: calc(50% - 50vw);
+  width: min(58vw, 820px);
+  height: clamp(300px, 27vw, 390px);
+  pointer-events: none;
+}
+.voices-scene img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 62% 36%;
+  opacity: .47;
+  /* 左と上下をアイボリーへ溶かし、カード側だけ静かに引く */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, rgba(0, 0, 0, .3) 24%, #000 58%),
+    linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+    linear-gradient(to right, transparent 0%, rgba(0, 0, 0, .3) 24%, #000 58%),
+    linear-gradient(to bottom, transparent 0%, #000 22%, #000 74%, transparent 100%);
+          mask-composite: intersect;
+}
+
 .voices-h {
+  position: relative; z-index: 1;
   text-align: center;
   font-size: clamp(1.28rem, 3vw, 1.7rem);
   font-weight: 600; color: var(--navy); line-height: 1.7;
   margin-bottom: clamp(44px, 6vw, 76px);
 }
 .voice-grid {
+  position: relative; z-index: 1;
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: clamp(16px, 2vw, 22px);
 }
@@ -558,24 +596,171 @@ ul, ol { list-style: none; padding: 0; }
   pointer-events: none;
 }
 .voice-card::before {
-  right: -30px; top: -30px; width: 96px; height: 96px;
-  border: 1px solid var(--gold); opacity: .16;
+  right: -26px; top: -26px; width: 78px; height: 78px;
+  border: 1px solid var(--gold); opacity: .2;
 }
 .voice-card::after {
-  right: -56px; top: -56px; width: 152px; height: 152px;
-  border: 1px solid var(--navy-soft); opacity: .12;
+  right: -48px; top: -48px; width: 124px; height: 124px;
+  border: 1px solid var(--navy-soft); opacity: .085;
 }
 .voice-card:hover {
   transform: translateY(-3px);
   border-color: #cfd9e6;
   box-shadow: var(--shadow-md);
 }
-.voice-card .ic { margin-bottom: 20px; }
-.voice-card p {
+.voice-no {
   position: relative;
-  font-size: 1rem; color: var(--ink); line-height: 1.95;
+  font-size: .71rem; font-weight: 600; letter-spacing: .18em;
+  color: var(--navy-soft);
 }
-.voice-card strong { color: var(--navy); font-weight: 600; }
+.voice-line {
+  position: relative;
+  margin-top: clamp(14px, 1.6vw, 18px);
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-weight: 600; color: var(--navy);
+  line-height: 1.85; letter-spacing: .01em;
+}
+
+/* =========================================================
+   共感 → 目指す状態 → WHY を一続きに見せる
+   区切り線は置かず、同じ人物・同じアイボリー・余白だけでつなぐ
+   ========================================================= */
+
+/* --- 目指す状態（Before / After の比較ではなく、その先のひと続き） --- */
+.aim {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
+  align-items: center;
+  gap: clamp(28px, 3.4vw, 56px);
+  margin-top: clamp(64px, 8.4vw, 120px);
+}
+.aim-h {
+  font-size: clamp(1.14rem, 2.4vw, 1.5rem);
+  font-weight: 700; color: var(--navy); line-height: 1.75; letter-spacing: .01em;
+}
+.aim-list {
+  display: flex; flex-direction: column;
+  gap: clamp(15px, 2vw, 21px);
+  margin-top: clamp(26px, 3.4vw, 38px);
+}
+/* 気持ちが少しずつ開いていくように、字送りと印を静かに強くしていく */
+.aim-list > li {
+  position: relative;
+  padding-left: 21px;
+  margin-left: calc(var(--s, 0) * clamp(2px, .45vw, 6px));
+  font-size: clamp(.94rem, 1.9vw, 1.03rem);
+  color: var(--ink); line-height: 1.95;
+}
+.aim-list > li::before {
+  content: ""; position: absolute; left: 3px; top: .88em;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold);
+  opacity: calc(.42 + var(--s, 0) * .13);
+}
+.js .aim-list > li.reveal { transition-delay: calc(var(--s, 0) * 80ms); }
+
+/* 同じ人物の、少しだけ前を向いた時間。画面端まで出して背景へ溶かす */
+.aim-scene {
+  margin: 0;
+  /* 画面端まで出すが、出しすぎると人物が枠の外へ逃げるので幅を上限で抑える */
+  margin-right: max(calc(50% - 50vw), -12vw);
+}
+.aim-scene img {
+  width: 100%;
+  height: clamp(340px, 40vw, 520px);
+  object-fit: cover;
+  object-position: 76% 36%;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 32%),
+    linear-gradient(to bottom, transparent 0%, #000 14%, #000 78%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+    linear-gradient(to right, transparent 0%, #000 32%),
+    linear-gradient(to bottom, transparent 0%, #000 14%, #000 78%, transparent 100%);
+          mask-composite: intersect;
+}
+
+/* 着地点：「私はこれがいい。」
+   小さなコンパスと、集まってくる光だけで静かに置く */
+.aim-land {
+  margin-top: clamp(44px, 5.6vw, 72px);
+  padding: clamp(28px, 3.6vw, 40px) 16px clamp(26px, 3.2vw, 34px);
+  text-align: center;
+  font-size: clamp(.89rem, 1.75vw, .96rem);
+  color: var(--ink-soft); line-height: 1.9;
+  background: radial-gradient(58% 66% at 50% 46%,
+    rgba(255, 255, 255, .92) 0%, rgba(255, 253, 248, .52) 44%, rgba(250, 246, 238, 0) 100%);
+}
+.aim-mark {
+  display: block;
+  width: clamp(30px, 3.2vw, 36px);
+  margin: 0 auto clamp(18px, 2.2vw, 24px);
+}
+.aim-mark svg { display: block; width: 100%; height: auto; }
+.aim-mark .am-ring,
+.aim-mark .am-tick {
+  fill: none; stroke: var(--gold);
+  stroke-width: 1.1; stroke-linecap: round;
+}
+.aim-mark .am-ring { opacity: .5; }
+.aim-mark .am-tick { opacity: .75; }
+.aim-mark .am-dot { fill: var(--gold); stroke: none; opacity: .85; }
+.aim-land strong {
+  display: block; margin-bottom: 10px;
+  font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+  font-weight: 700; color: var(--navy); line-height: 1.6; letter-spacing: .04em;
+}
+
+/* --- WHY MY LIFE COMPASS（着地点の余韻を受け、上から下へ一本で読ませる） --- */
+.why { margin-top: clamp(48px, 5.4vw, 72px); text-align: center; }
+
+/* 一緒にすること：中央に置いた塊の中で、ゴールドの点で行頭を揃える。
+   .qlist はこの下（TALK）で定義されるので、.why を前置して詳細度で勝たせる。 */
+.why-actions {
+  max-width: max-content;
+  margin: clamp(20px, 2.4vw, 26px) auto 0;
+  text-align: left;
+}
+.why .why-actions { gap: clamp(9px, 1.2vw, 12px); }
+.why .why-actions > li {
+  font-size: clamp(1rem, 2.05vw, 1.08rem);
+  font-weight: 500; color: var(--navy); line-height: 1.8;
+}
+.why .why-actions > li::before { top: .8em; }
+
+/* 大切にしていること：小さな点で受けて、少しだけ静かに落とす */
+.why-body {
+  position: relative;
+  margin-top: clamp(20px, 2.5vw, 28px);
+  padding-top: clamp(24px, 3vw, 32px);
+}
+.why-body::before {
+  content: ""; position: absolute; left: 50%; top: 0;
+  width: 6px; height: 6px; margin-left: -3px; border-radius: 50%;
+  background: var(--gold); opacity: .75;
+}
+.why-body > p {
+  font-size: clamp(.94rem, 1.85vw, 1rem);
+  color: var(--ink); line-height: 2.05;
+}
+.why-body > p + p { margin-top: clamp(14px, 1.8vw, 18px); }
+
+/* 締め：短いゴールドラインの先に、視線が集まる */
+.why-belief {
+  position: relative;
+  max-width: 620px;
+  margin: clamp(26px, 3.2vw, 36px) auto 0;
+  padding-top: clamp(20px, 2.4vw, 26px);
+  font-size: clamp(1.12rem, 2.5vw, 1.4rem);
+  font-weight: 700; color: var(--navy);
+  line-height: 1.9; letter-spacing: .01em;
+}
+.why-belief::before {
+  content: ""; position: absolute; left: 50%; top: 0;
+  width: 60px; height: 1px; transform: translateX(-50%);
+  background: linear-gradient(90deg,
+    rgba(194, 160, 106, 0), var(--gold), rgba(194, 160, 106, 0));
+}
 
 /* =========================================================
    TALK — コピーと人物を一つの構図に
@@ -1276,6 +1461,19 @@ ul, ol { list-style: none; padding: 0; }
    ========================================================= */
 @media (max-width: 1020px) {
   .voice-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* 目指す状態：文章の行が窮屈にならないよう、画像の比重を下げる */
+  .aim { grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); }
+  .aim-scene img { height: clamp(320px, 44vw, 420px); object-position: 80% 34%; }
+
+  /* 背景ビジュアル：2列カードでも、余白側から気配だけが見えるように */
+  .voices-scene {
+    width: min(72vw, 740px);
+    top: clamp(-96px, -6.4vw, -60px);
+    height: clamp(280px, 30vw, 330px);
+  }
+  .voices-scene img { object-position: 64% 34%; opacity: .46; }
+
   .svc-row { grid-template-columns: minmax(0, 1fr) auto; }
   .svc-act { grid-column: 1 / -1; }
   .svc-act .btn { width: auto; min-width: 260px; }
@@ -1353,12 +1551,73 @@ ul, ol { list-style: none; padding: 0; }
   }
   .hero-title { font-size: clamp(1.95rem, 8.6vw, 2.6rem); }
 
-  /* 共感カード：1列 */
-  .voice-grid { grid-template-columns: 1fr; gap: 14px; }
-  .voice-card { padding: 26px 22px 28px; }
-  .voice-card::before { right: -34px; top: -34px; width: 88px; height: 88px; }
-  .voice-card::after { right: -60px; top: -60px; width: 138px; height: 138px; }
-  .voice-card .ic { width: 24px; height: 24px; margin-bottom: 16px; }
+  /* HERO：スマホはコピー最優先。画像は右上から差す光としてだけ残す */
+  .hero::before {
+    background-image:
+      linear-gradient(to bottom,
+        #ffffff 0%, rgba(255, 255, 255, .5) 9%, rgba(255, 255, 255, 0) 26%,
+        rgba(255, 255, 255, .26) 42%, rgba(255, 255, 255, .56) 54%,
+        rgba(255, 255, 255, .66) 66%, rgba(255, 255, 255, .88) 84%, #ffffff 100%),
+      radial-gradient(126% 112% at 100% 0%,
+        rgba(253, 250, 244, .48) 0%, rgba(253, 250, 244, .74) 32%,
+        rgba(253, 250, 244, .92) 56%, #fdfaf4 74%),
+      url("./assets/hero-welcome.png");
+    background-position: center, center, 100% 0%;
+    background-size: cover, cover, auto 48%;
+  }
+
+  /* 共感カード：2列のまま、カードをコンパクトにする */
+  .voice-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .voice-card { padding: 18px 16px 20px; border-radius: 16px; }
+  .voice-card::before { right: -26px; top: -26px; width: 64px; height: 64px; }
+  .voice-card::after { display: none; }
+  .voice-no { font-size: .66rem; letter-spacing: .16em; }
+  .voice-line { margin-top: 10px; font-size: .95rem; line-height: 1.75; }
+
+  /* 共感の背景：スクロール量を増やさず、セクション上の余白に画像を収める */
+  .voices { padding-top: 92px; }
+  .voices-scene {
+    top: clamp(-96px, -12vw, -76px);
+    height: clamp(288px, 50vw, 384px);
+    width: min(88vw, 580px);
+  }
+  .voices-scene img {
+    object-position: 70% 30%;
+    opacity: .4;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, .22) 12%, #000 44%),
+      linear-gradient(to bottom, transparent 0%, #000 14%, #000 58%, transparent 100%);
+            mask-image:
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, .22) 12%, #000 44%),
+      linear-gradient(to bottom, transparent 0%, #000 14%, #000 58%, transparent 100%);
+  }
+
+  /* 共感 → 目指す状態 → WHY：余白を詰めて、流れだけ残す */
+  /* 目指す状態：画像は上に少しだけ見せ、下端を文章へ溶かす */
+  .aim { grid-template-columns: 1fr; gap: 0; margin-top: 56px; }
+  .aim-scene { order: -1; margin-left: calc(50% - 50vw); }
+  .aim-scene img {
+    height: auto; aspect-ratio: 16 / 10;
+    object-position: 64% 26%;
+    -webkit-mask-image: linear-gradient(to bottom, #000 44%, transparent 94%);
+            mask-image: linear-gradient(to bottom, #000 44%, transparent 94%);
+  }
+  .aim-copy { margin-top: -9%; }
+  .aim-h { font-size: 1.1rem; line-height: 1.8; }
+  .aim-list { margin-top: 22px; }
+  .aim-list > li { font-size: .94rem; line-height: 1.85; }
+  .aim-land { margin-top: 30px; padding: 26px 8px 22px; }
+  .aim-mark { margin-bottom: 16px; }
+  .aim-land strong { font-size: 1.44rem; line-height: 1.55; }
+
+  .why { margin-top: 44px; }
+  .why .why-actions { margin-top: 20px; }
+  .why .why-actions > li { font-size: 1rem; line-height: 1.85; }
+  .why-body > p { font-size: .94rem; line-height: 2.05; }
+  .why-belief {
+    margin-top: 26px; padding-top: 20px;
+    font-size: 1.14rem; line-height: 1.9;
+  }
 
   /* ABOUT 円形ビジュアル */
   .about-stage { max-width: 320px; --r-word: 40%; }
@@ -1475,7 +1734,15 @@ ul, ol { list-style: none; padding: 0; }
   }
   .btn-lg { width: 100%; }
   .program-cta { width: 100%; }
-  .voice-card p { font-size: .96rem; }
+  .xs-only { display: inline; }
+
+  /* 共感カード：2列でも1〜2行に収まるよう、幅と字送りを詰める */
+  .voice-grid { gap: 10px; margin: 0 -6px; }
+  .voice-card { padding: 16px 15px 18px; }
+  .voice-line { font-size: .89rem; letter-spacing: 0; }
+  .aim-list > li { font-size: .91rem; }
+  .why .why-actions > li { font-size: .96rem; }
+  .why-body > p { font-size: .91rem; }
   .program { border-radius: var(--radius); }
 }
 

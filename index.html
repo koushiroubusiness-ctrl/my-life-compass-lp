@@ -13,6 +13,8 @@
   <meta property="og:image" content="./assets/icon.png" />
 
   <link rel="icon" href="./assets/icon.png" />
+  <!-- HERO の背景素材は CSS から参照するため、先に読み込みを始める -->
+  <link rel="preload" as="image" href="./assets/hero-welcome.png" fetchpriority="high" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -146,7 +148,6 @@
       </div>
 
       <div class="container container-narrow about-story">
-        <p class="label reveal">WHY MY LIFE COMPASS</p>
         <h3 class="about-story-title reveal">
           誰かの人生を、<br />
           変えたいわけじゃない。
@@ -172,93 +173,121 @@
             そんな小さな気持ちを、<br />
             一人で諦めてほしくないと思っています。
           </p>
-
-          <p class="about-story-actions reveal">
-            うまく言葉にできないなら、一緒に整理する。<br />
-            まだ形になっていないなら、一緒に考える。<br />
-            一歩踏み出すのが怖いなら、その隣で一緒に進めていく。
-          </p>
-
-          <p class="reveal">
-            その人が誰かの正解ではなく、<br />
-            「私はこれがいい」と思える人生を少しずつ選べるように。
-          </p>
-
-          <p class="reveal">
-            そして、自分なりの幸せを見つけて、<br />
-            それを現実の中で少しずつ形にしていけるように。
-          </p>
-
-          <p class="about-story-belief reveal">
-            My Life Compassは、<br />
-            「その人らしい幸せを、<br />
-            一緒に探し、一緒に形にしていきたい」<br />
-            という思いから生まれました。
-          </p>
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         共感（ABOUT → TALK の橋）
+         共感 → 目指す状態 → WHY MY LIFE COMPASS
+         「今の自分」から「私はこれがいい」まで、ひと続きに見せる
     ============================================================= -->
     <section class="section section-ivory voices" id="voices">
-      <div class="container">
+      <div class="container voices-block">
+        <!-- まだ迷っている時間そのものを、6つの言葉の背後に置く -->
+        <div class="voices-scene reveal" aria-hidden="true">
+          <img src="./assets/change-before.png" alt="" loading="lazy" decoding="async" />
+        </div>
+
         <h2 class="voices-h reveal">こんなこと、ありませんか。</h2>
 
         <div class="voice-grid">
           <article class="voice-card reveal">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3v3" />
-              <path d="M18.4 13H5.6a2 2 0 0 1-1.4-.6l-1.5-1.5a1 1 0 0 1 0-1.4l1.5-1.5A2 2 0 0 1 5.6 7.4h12.8a2 2 0 0 1 1.4.6l1.5 1.5a1 1 0 0 1 0 1.4l-1.5 1.5a2 2 0 0 1-1.4.6Z" />
-              <path d="M12 13v8" />
-            </svg>
-            <p>このままでいいのかな、と<strong>考えることが増えた</strong>。</p>
+            <p class="voice-no">01</p>
+            <p class="voice-line">このままで<br class="xs-only" />いいのかな。</p>
           </article>
 
           <article class="voice-card reveal">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M9.4 9.2a2.6 2.6 0 1 1 3.7 2.4c-.7.3-1.1.9-1.1 1.7v.3" />
-              <path d="M12 17.4h.01" />
-            </svg>
-            <p><strong>何がしたいのか</strong>、自分でもよく分からない。</p>
+            <p class="voice-no">02</p>
+            <p class="voice-line">何がしたいのか、<br />自分でも分からない。</p>
           </article>
 
           <article class="voice-card reveal">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3 3 7.4l9 4.4 9-4.4L12 3Z" />
-              <path d="M3 12.4 12 16.8l9-4.4" />
-              <path d="M3 16.8 12 21.2l9-4.4" />
-            </svg>
-            <p>仕事やこれからについて、<strong>一度整理したい</strong>。</p>
+            <p class="voice-no">03</p>
+            <p class="voice-line">自分には<br class="xs-only" />何もない気がする。</p>
           </article>
 
           <article class="voice-card reveal">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 20.5v-7.2" />
-              <path d="M12 13.3C12 9.9 9.3 7.2 5.9 7.2c0 3.4 2.7 6.1 6.1 6.1Z" />
-              <path d="M12 13.3c0-2.9 2.3-5.2 5.2-5.2 0 2.9-2.3 5.2-5.2 5.2Z" />
-            </svg>
-            <p>やってみたいけれど、<strong>始め方が分からない</strong>。</p>
+            <p class="voice-no">04</p>
+            <p class="voice-line">やってみたい。<br />でも、自信がない。</p>
           </article>
 
           <article class="voice-card reveal">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="10.6" cy="11" r="6.4" />
-              <path d="m19.4 19.8-4.3-4.3" />
-              <path d="M19.2 4v3.2M17.6 5.6h3.2" class="ic-gold" />
-            </svg>
-            <p>自分に<strong>何ができるのか</strong>、いまいち分からない。</p>
+            <p class="voice-no">05</p>
+            <p class="voice-line">自分らしく、<br />何かを始めてみたい。</p>
           </article>
 
           <article class="voice-card reveal">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4.6 11.8 20 4.4 12.6 19.8l-1.8-6.2Z" />
-            </svg>
-            <p>発信や活動の、<strong>方向性が定まらない</strong>。</p>
+            <p class="voice-no">06</p>
+            <p class="voice-line">周りの正解ばかり、<br />気になってしまう。</p>
           </article>
         </div>
+      </div>
+
+      <!-- 目指す状態（比較ではなく、気持ちが少しだけ開いていく一続きとして） -->
+      <div class="container aim">
+        <div class="aim-copy">
+          <h2 class="aim-h reveal">
+            My Life Compassは、<br />こんな状態を目指します。
+          </h2>
+
+          <ul class="aim-list">
+            <li class="reveal" style="--s:0">「本当はどうしたい？」を<br class="xs-only" />考えられるようになる。</li>
+            <li class="reveal" style="--s:1">「これ、ちょっとやってみたい」が<br class="xs-only" />少しずつ見えてくる。</li>
+            <li class="reveal" style="--s:2">「私にも、こんなところがあったんだ」<br class="xs-only" />と気づける。</li>
+            <li class="reveal" style="--s:3">「まずは少しだけ」動いてみられる。</li>
+            <li class="reveal" style="--s:4">好きなことや経験が、<br class="xs-only" />少しずつ自分らしい形になっていく。</li>
+          </ul>
+        </div>
+
+        <figure class="aim-scene reveal">
+          <img src="./assets/change-after.png" alt="窓辺のテーブルで、これからやってみたいことを思い浮かべている女性" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+
+      <!-- 着地点：「私はこれがいい。」 -->
+      <div class="container container-narrow">
+        <p class="aim-land reveal">
+          <span class="aim-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none">
+              <circle class="am-ring" cx="20" cy="20" r="13" />
+              <line class="am-tick" x1="20" y1="0.8" x2="20" y2="5.6" />
+              <line class="am-tick" x1="20" y1="34.4" x2="20" y2="39.2" />
+              <line class="am-tick" x1="0.8" y1="20" x2="5.6" y2="20" />
+              <line class="am-tick" x1="34.4" y1="20" x2="39.2" y2="20" />
+              <circle class="am-dot" cx="20" cy="20" r="2.1" />
+            </svg>
+          </span>
+          <strong>「私はこれがいい。」</strong>と思えるようになる。
+        </p>
+      </div>
+
+      <!-- WHY MY LIFE COMPASS（「私はこれがいい。」の余韻を受ける） -->
+      <div class="container container-narrow why">
+        <p class="label reveal">WHY MY LIFE COMPASS</p>
+
+        <ul class="qlist why-actions reveal">
+          <li>うまく言葉にできないなら、一緒に整理する。</li>
+          <li>まだ形になっていないなら、一緒に考える。</li>
+          <li>一歩踏み出すのが怖いなら、<br class="xs-only" />その隣で一緒に進めていく。</li>
+        </ul>
+
+        <div class="why-body">
+          <p class="reveal">
+            その人が誰かの正解ではなく、<br />
+            「私はこれがいい」と思える<br class="xs-only" />人生を少しずつ選べるように。
+          </p>
+          <p class="reveal">
+            そして、自分なりの幸せを見つけて、<br />
+            それを現実の中で<br class="xs-only" />少しずつ形にしていけるように。
+          </p>
+        </div>
+
+        <p class="why-belief reveal">
+          My Life Compassは、<br />
+          「その人らしい幸せを、<br />
+          一緒に探し、一緒に形にしていきたい」<br />
+          という思いから生まれました。
+        </p>
       </div>
     </section>
 
