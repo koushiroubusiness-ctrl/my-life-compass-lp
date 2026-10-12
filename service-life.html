@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>人生を整理する｜こーしろー（My Life Compass）</title>
+  <meta name="description" content="こーしろーのTALK &amp; PRODUCE（3ヶ月）。その人らしい幸せを、一緒に探していく時間について。" />
+
+  <!-- OGP（紹介用） -->
+  <meta property="og:title" content="人生を整理する｜こーしろー（My Life Compass）" />
+  <meta property="og:description" content="その人らしい幸せを、一緒に探していく。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="./assets/icon.png" />
+
+  <link rel="icon" href="./assets/icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- JS が動く環境だけアニメーションの初期状態（非表示）を適用する -->
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <!-- スクロール進行度（PCのみ・画面右端の細いライン） -->
+  <div class="progress-rail" aria-hidden="true"><span class="progress-bar" id="progressBar"></span></div>
+
+  <!-- ============================================================
+       ヘッダー
+  ============================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html" aria-label="こーしろー トップへ">
+        <img class="brand-mark" src="./assets/icon.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand-text">
+          <span class="brand-name">こーしろー</span>
+          <span class="brand-activity">My Life Compass</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="siteNav" aria-label="メインナビゲーション">
+        <a href="./index.html#about">ABOUT</a>
+        <a href="./index.html#talk">TALK</a>
+        <a href="./index.html#produce">PRODUCE</a>
+        <a href="./index.html#tool">TOOL</a>
+        <a href="./index.html#service">SERVICE</a>
+        <a href="./index.html#faq">FAQ</a>
+        <a href="#cta" data-line-cta class="btn btn-primary btn-sm nav-cta">まずは話してみる</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================================================
+         SERVICE DETAIL
+    ============================================================= -->
+    <section class="section-produce produce-detail svd">
+      <div class="container container-narrow">
+        <div class="produce-detail-head">
+          <p class="label reveal">TALK &amp; PRODUCE</p>
+          <h1 class="sec-title reveal">人生を整理する</h1>
+          <p class="svd-price reveal">月30,000円 × 3ヶ月</p>
+          <p class="sec-note reveal">その人らしい幸せを、一緒に探していく。</p>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">こんな方へ</h2>
+          <ul class="qlist svd-list reveal">
+            <li>これからの人生や働き方を考えたい</li>
+            <li>自分に何ができるのか分からない</li>
+            <li>0から自分のサービスを始めてみたい</li>
+            <li>noteで発信を始めたいけれど、何を書けばいいか分からない</li>
+            <li>自分の経験を誰かの役に立ててみたい</li>
+          </ul>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">どんな時間を過ごせるのか</h2>
+          <p class="svd-text reveal">まずは、これまでの経験や好きなこと、大切にしていることをゆっくり話すところから始めます。話しながら自分の中にあるものを見つけ、少しずつ『こんなことをやってみたい』を形にしていきます。</p>
+          <p class="svd-text reveal">noteを、自分自身を知るための場所として。そして、自分が届けたい人と出会うための場所として。一緒に記事や発信の方向性を考えながら、自分らしいサービスを育てていきます。</p>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">一緒にできること</h2>
+          <ul class="qlist svd-list reveal">
+            <li>これまでの経験、好きなこと、強みを整理する</li>
+            <li>自分が大切にしたい人生や働き方を考える</li>
+            <li>誰に何を届けたいのかを明確にする</li>
+            <li>0からサービスの内容や価格を考える</li>
+            <li>noteのプロフィールと発信テーマを整える</li>
+            <li>自分の内省と、届けたい人のための記事づくりを伴走する</li>
+            <li>noteから公式LINEへつながる導線を考え、整える</li>
+            <li>相談や申し込みにつながる土台をつくる</li>
+          </ul>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">3ヶ月のイメージ</h2>
+          <ol class="svd-steps reveal">
+            <li><span class="svd-month">1ヶ月目</span><span class="svd-step">自分を知り、届けたい人を見つける</span></li>
+            <li><span class="svd-month">2ヶ月目</span><span class="svd-step">noteで発信しながら、サービスの形を考える</span></li>
+            <li><span class="svd-month">3ヶ月目</span><span class="svd-step">サービスと公式LINEへの導線を整え、小さく始める</span></li>
+          </ol>
+          <p class="svd-small reveal">※固定カリキュラムではなく、その人の状況やペースに合わせます。</p>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">目指す状態</h2>
+          <p class="svd-text reveal">自分が何を大切にしているのかが少し分かっていて、届けたい人が見えていて、自分のサービスや発信の土台ができている。</p>
+          <p class="svd-text reveal">そして、『自分にも、こんなことができるかもしれない』。そんな気持ちを持って、次の一歩を考えられるようになっている状態を目指します。</p>
+        </div>
+
+        <p class="svd-cta reveal"><a href="#cta" data-line-cta class="btn btn-primary btn-lg btn-arrow">この3ヶ月について相談する</a></p>
+
+        <p class="more-wrap more-wrap-back">
+          <a class="more-link more-link-back" href="./index.html#service">
+            <svg class="more-arrow" viewBox="0 0 12 12" aria-hidden="true">
+              <line x1="10.6" y1="10.6" x2="1.8" y2="1.8" />
+              <polyline points="1.8 7.4 1.8 1.8 7.4 1.8" />
+            </svg>
+            <span class="more-rule" aria-hidden="true"></span>
+            <span class="more-text">サービス一覧に戻る</span>
+          </a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       フッター
+  ============================================================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="./index.html">
+          <img class="brand-mark" src="./assets/icon.png" alt="" width="34" height="34" loading="lazy" decoding="async" />
+          <span class="brand-text">
+            <span class="brand-name">こーしろー</span>
+            <span class="brand-activity">My Life Compass</span>
+          </span>
+        </a>
+        <p class="footer-tagline">自分らしい人生を、一歩ずつ形に。</p>
+      </div>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <a href="./index.html#about">ABOUT</a>
+        <a href="./index.html#talk">TALK</a>
+        <a href="./index.html#produce">PRODUCE</a>
+        <a href="./index.html#tool">TOOL</a>
+        <a href="./index.html#service">SERVICE</a>
+        <a href="./index.html#faq">FAQ</a>
+      </nav>
+    </div>
+    <p class="footer-copy">© 2026 こーしろー / My Life Compass</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

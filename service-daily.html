@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日常を整える｜こーしろー（My Life Compass）</title>
+  <meta name="description" content="こーしろーのTALK（月10,000円）。定期的に話しながら、頭と気持ちを整理する時間について。" />
+
+  <!-- OGP（紹介用） -->
+  <meta property="og:title" content="日常を整える｜こーしろー（My Life Compass）" />
+  <meta property="og:description" content="定期的に話しながら、頭と気持ちを整理する。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="./assets/icon.png" />
+
+  <link rel="icon" href="./assets/icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- JS が動く環境だけアニメーションの初期状態（非表示）を適用する -->
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <!-- スクロール進行度（PCのみ・画面右端の細いライン） -->
+  <div class="progress-rail" aria-hidden="true"><span class="progress-bar" id="progressBar"></span></div>
+
+  <!-- ============================================================
+       ヘッダー
+  ============================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html" aria-label="こーしろー トップへ">
+        <img class="brand-mark" src="./assets/icon.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand-text">
+          <span class="brand-name">こーしろー</span>
+          <span class="brand-activity">My Life Compass</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="siteNav" aria-label="メインナビゲーション">
+        <a href="./index.html#about">ABOUT</a>
+        <a href="./index.html#talk">TALK</a>
+        <a href="./index.html#produce">PRODUCE</a>
+        <a href="./index.html#tool">TOOL</a>
+        <a href="./index.html#service">SERVICE</a>
+        <a href="./index.html#faq">FAQ</a>
+        <a href="#cta" data-line-cta class="btn btn-primary btn-sm nav-cta">まずは話してみる</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================================================
+         SERVICE DETAIL
+    ============================================================= -->
+    <section class="section-produce produce-detail svd">
+      <div class="container container-narrow">
+        <div class="produce-detail-head">
+          <p class="label reveal">TALK</p>
+          <h1 class="sec-title reveal">日常を整える</h1>
+          <p class="svd-price reveal">月10,000円</p>
+          <p class="sec-note reveal">定期的に話しながら、頭と気持ちを整理する。</p>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">こんな方へ</h2>
+          <ul class="qlist svd-list reveal">
+            <li>仕事や人間関係で、少し気になることがある</li>
+            <li>自分の気持ちをゆっくり話せる時間がほしい</li>
+            <li>悩みがはっきりしていないけれど、誰かと話したい</li>
+            <li>日常の中に、自分のための時間をつくりたい</li>
+          </ul>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">どんな時間を過ごせるのか</h2>
+          <p class="svd-text reveal">仕事が終わった夜。好きな飲み物を用意して、自分が落ち着ける場所からゆっくり話し始める。今週あったこと、少し気になったこと、最近嬉しかったこと。何を話すか、最初から決まっていなくても大丈夫です。</p>
+          <p class="svd-text reveal">何かを達成するためというよりも、日常の中に、自分のことを整理する時間をつくる。そんな関わり方を大切にしています。</p>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">一緒にできること</h2>
+          <ul class="qlist svd-list reveal">
+            <li>今週の出来事や気持ちを振り返る</li>
+            <li>仕事や人間関係のモヤモヤを整理する</li>
+            <li>自分が本当はどう感じていたのかを考える</li>
+            <li>今の生活で大切にしたいことを見つける</li>
+          </ul>
+        </div>
+
+        <div class="svd-block">
+          <h2 class="svd-title reveal">目指す状態</h2>
+          <p class="svd-text reveal">自分の気持ちを少しずつ理解できるようになり、日常の中にほっとできる時間がある。次のセッションを少し楽しみにできるような関係を目指します。</p>
+        </div>
+
+        <p class="svd-cta reveal"><a href="#cta" data-line-cta class="btn btn-primary btn-lg btn-arrow">TALKについて相談する</a></p>
+
+        <p class="more-wrap more-wrap-back">
+          <a class="more-link more-link-back" href="./index.html#service">
+            <svg class="more-arrow" viewBox="0 0 12 12" aria-hidden="true">
+              <line x1="10.6" y1="10.6" x2="1.8" y2="1.8" />
+              <polyline points="1.8 7.4 1.8 1.8 7.4 1.8" />
+            </svg>
+            <span class="more-rule" aria-hidden="true"></span>
+            <span class="more-text">サービス一覧に戻る</span>
+          </a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       フッター
+  ============================================================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="./index.html">
+          <img class="brand-mark" src="./assets/icon.png" alt="" width="34" height="34" loading="lazy" decoding="async" />
+          <span class="brand-text">
+            <span class="brand-name">こーしろー</span>
+            <span class="brand-activity">My Life Compass</span>
+          </span>
+        </a>
+        <p class="footer-tagline">自分らしい人生を、一歩ずつ形に。</p>
+      </div>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <a href="./index.html#about">ABOUT</a>
+        <a href="./index.html#talk">TALK</a>
+        <a href="./index.html#produce">PRODUCE</a>
+        <a href="./index.html#tool">TOOL</a>
+        <a href="./index.html#service">SERVICE</a>
+        <a href="./index.html#faq">FAQ</a>
+      </nav>
+    </div>
+    <p class="footer-copy">© 2026 こーしろー / My Life Compass</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

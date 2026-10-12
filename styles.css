@@ -1467,6 +1467,126 @@ ul, ol { list-style: none; padding: 0; }
   display: block; margin-bottom: 8px;
   font-size: .66rem; font-weight: 600; letter-spacing: .26em; color: var(--gold);
 }
+/* 相談ボタンの直下に置く、詳細ページへの控えめな導線 */
+.svc-more { margin-top: 14px; text-align: center; }
+
+/* =========================================================
+   SERVICE COMPARISON — 3つのサービスの比較表
+   ========================================================= */
+.compare { padding-top: 0; }
+.cmp-hint { display: none; }
+.cmp-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.cmp-scroll:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.cmp-table {
+  width: 100%; min-width: 760px;
+  table-layout: fixed;
+  border-collapse: separate; border-spacing: 0;
+}
+.cmp-col-head { width: 220px; }
+.cmp-table th,
+.cmp-table td {
+  height: 56px;
+  padding: 12px 14px;
+  text-align: center; vertical-align: middle;
+  font-size: .92rem; line-height: 1.6; color: var(--ink);
+}
+.cmp-table tbody tr:nth-child(even) { background: #f3f5f8; }
+.cmp-table tbody tr:nth-child(odd)  { background: #ffffff; }
+.cmp-table tbody th[scope="row"] {
+  text-align: left;
+  font-size: .9rem; font-weight: 700; color: var(--navy);
+}
+.cmp-table th[scope="row"],
+.cmp-corner { position: sticky; left: 0; z-index: 1; background: inherit; }
+.cmp-corner { background: var(--white); }
+.cmp-table td strong { font-weight: 700; color: var(--navy); }
+.cmp-table td small {
+  display: block; margin-top: 2px;
+  font-size: .78rem; color: var(--ink-soft);
+}
+
+/* プランヘッダー：ネイビーの濃淡で3列を分ける */
+.cmp-plan { height: 84px; color: #fff; border-left: 2px solid var(--white); }
+.cmp-plan.is-p1 { background: #456a9b; }
+.cmp-plan.is-p2 { background: #223a5e; }
+.cmp-plan.is-p3 { background: #142840; }
+.cmp-table .cmp-plan { color: #fff; }
+.cmp-plan-name { display: block; font-size: .98rem; font-weight: 700; letter-spacing: .02em; }
+.cmp-plan-price { display: block; margin-top: 4px; font-size: .84rem; font-weight: 500; opacity: .9; }
+
+/* 「セッションについて」「できること」の帯 */
+.cmp-table tbody tr.cmp-sec { background: #e9eef5; }
+.cmp-sec th {
+  height: auto; padding: 10px 14px;
+  text-align: left;
+  font-size: .86rem; font-weight: 700; letter-spacing: .06em; color: var(--navy);
+}
+.cmp-sec th span { position: sticky; left: 14px; }
+
+/* チェックアイコン（対応：塗りつぶし円＋白いチェック／対象外：薄いグレーの輪） */
+.cmp-ic {
+  position: relative; display: inline-block; vertical-align: middle;
+  width: 27px; height: 27px; border-radius: 50%;
+  background: var(--ic);
+}
+.cmp-ic::after {
+  content: ""; position: absolute; left: 50%; top: 46%;
+  width: 6px; height: 11px;
+  border: solid #fff; border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.cmp-ic.is-p1 { --ic: #456a9b; }
+.cmp-ic.is-p2 { --ic: #223a5e; }
+.cmp-ic.is-p3 { --ic: #142840; }
+.cmp-ic.is-off { background: none; border: 1.5px solid #d8dddf; }
+.cmp-ic.is-off::after { content: none; }
+
+.cmp-legend {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px;
+  margin-top: 20px;
+  font-size: .86rem; color: var(--ink-soft);
+}
+.cmp-legend > span { display: inline-flex; align-items: center; gap: 8px; }
+.cmp-note {
+  margin-top: clamp(30px, 4vw, 44px);
+  text-align: center;
+  font-size: .95rem; color: var(--ink-soft); line-height: 1.9;
+}
+.cmp-act { margin-top: 20px; text-align: center; }
+
+/* =========================================================
+   SERVICE DETAIL — 各サービスの詳細ページ（1カラム）
+   ========================================================= */
+.svd-price {
+  margin-top: 14px;
+  font-size: clamp(1.02rem, 2.2vw, 1.14rem); font-weight: 600;
+  color: var(--gold-deep); letter-spacing: .04em;
+}
+.svd-block { max-width: 620px; margin: clamp(52px, 7vw, 84px) auto 0; }
+.svd-title {
+  margin-bottom: clamp(20px, 2.8vw, 28px);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1.08rem, 2.3vw, 1.3rem);
+  font-weight: 700; color: var(--navy); line-height: 1.7;
+}
+.svd-text {
+  font-size: clamp(.93rem, 1.85vw, 1rem);
+  color: var(--ink); line-height: 2.05;
+}
+.svd-text + .svd-text { margin-top: 1.2em; }
+.svd-steps { display: flex; flex-direction: column; gap: 14px; }
+.svd-steps li { display: flex; gap: 18px; align-items: baseline; line-height: 1.9; }
+.svd-month {
+  flex: 0 0 auto;
+  font-size: .78rem; font-weight: 600; letter-spacing: .14em; color: var(--gold-deep);
+}
+.svd-step { font-size: clamp(.92rem, 1.8vw, .98rem); color: var(--ink); }
+.svd-small { margin-top: 18px; font-size: .8rem; color: var(--ink-soft); line-height: 1.9; }
+.svd-cta { margin-top: clamp(56px, 7.5vw, 88px); text-align: center; }
 
 /* =========================================================
    FAQ
@@ -1592,6 +1712,7 @@ ul, ol { list-style: none; padding: 0; }
   .svc-row { grid-template-columns: minmax(0, 1fr) auto; }
   .svc-act { grid-column: 1 / -1; }
   .svc-act .btn { width: auto; min-width: 260px; }
+  .svc-more { text-align: left; }
 }
 
 @media (max-width: 900px) {
@@ -1833,6 +1954,21 @@ ul, ol { list-style: none; padding: 0; }
   .svc-price { text-align: left; }
   .svc-act { grid-column: auto; }
   .svc-act .btn { width: 100%; min-width: 0; }
+  .svc-more { text-align: center; }
+
+  .cmp-hint {
+    display: flex; justify-content: flex-end; align-items: center; gap: 6px;
+    margin-bottom: 10px;
+    font-size: .76rem; letter-spacing: .06em; color: var(--navy-soft);
+  }
+  .cmp-hint span { color: var(--gold-deep); }
+  .cmp-table { min-width: 600px; }
+  .cmp-col-head { width: 132px; }
+  .cmp-table th,
+  .cmp-table td { padding: 12px 10px; font-size: .86rem; }
+  .cmp-table tbody th[scope="row"] { font-size: .84rem; box-shadow: 1px 0 0 #e3e7ec; }
+  .cmp-plan-name { font-size: .9rem; }
+  .cmp-plan-price { font-size: .8rem; }
 
   /* FAQ */
   .faq-item summary { padding: 18px 20px; font-size: .96rem; gap: 10px; }
